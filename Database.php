@@ -46,13 +46,11 @@ class task extends connect {
         }
     }
     public function viewTask($stat) {
-        // array_map(fn($task)=>in_array($stat, $task) ? print_r($task) : null ,$this->taskInfo);
         try {
             if ($this->taskInfo === null) {
                 throw new Exception("Create a New Task");
             }
             foreach ($this->taskInfo as $task) {
-                    // print_r($task);
                 if (in_array($stat,$task)) {
                     echo '<div id="taskCard" class="task-card">
                             <div class="task-content">
@@ -70,10 +68,10 @@ class task extends connect {
                                     </div>
                                     <div class="manage-task">
                                         <form action="./Database.php?action=delete" method="post">
-                                            <input type="hidden" name="delete" value="'.$task["task_id"].'">
+                                            <input id="taskId" type="hidden" name="delete" value="'.$task["task_id"].'">
                                             <input type="submit" class="delete-button" value="Delete">
                                         </form>
-                                        <button id="editButton" class="edit-button">Edit</button>
+                                        <button id="editButton" onclick="edit(this.previousElementSibling.firstElementChild.value,this.parentElement.parentElement.previousElementSibling,this.parentElement.parentElement.previousElementSibling.previousElementSibling.firstElementChild,this.parentElement.parentElement.previousElementSibling.previousElementSibling.lastElementChild,parentElement.parentElement.parentElement.nextElementSibling.lastElementChild.lastElementChild.textContent)" class="edit-button">Edit</button>
                                     </div>
                                 </div>
                             </div>
@@ -93,9 +91,9 @@ class task extends connect {
             echo $e->getMessage();
         }
     }
-    public function editTask($title,$description,$status,$task_type) {
-        $stmt = $this->connect->prepare("UPDATE tasks set title = ? description = ? status = ? task_type = ? where task_id = ?");
-        $res = $stmt->execute([$title,$description,$status,$task_type]);
+    public function editTask($title,$description,$status,$task_type,$id) {
+        $stmt = $this->connect->prepare("UPDATE tasks set title = ?, description = ?, status = ?, task_type = ? where task_id = ?");
+        $res = $stmt->execute([$title,$description,$status,$task_type,$id]);
     }
     public function deleteTask($id) {
         $stmt = $this->connect->prepare("DELETE FROM tasks where task_id = ?");
@@ -125,15 +123,16 @@ if (isset($_GET["action"])) {
         (new task)->deleteTask($id);
         header("Location: ./index.php");
     }elseif ($_GET["action"]=="edit") {
-        if(isset($_POST["title"])) { 
-            $title = $_POST["title"];
+        if(isset($_POST["name"])) { 
+            $title = $_POST["name"];
             $description = $_POST["description"];
             $status = $_POST["status"];
             $type = $_POST["type"];
-            if(empty($title) || empty($description) || empty($status) || empty($type)) {
-                header("Location: ./index.php?mess=error");
+            $id = $_POST["id"];
+            if(empty($title) || empty($description) || empty($status) || empty($type) || empty($id)) {
+
             }else {
-                (new task)->editTask($title,$description, $status, $type);
+                (new task)->editTask($title,$description, $status, $type, $id);
                 header("Location: ./index.php");
             }
         }

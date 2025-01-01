@@ -1,6 +1,5 @@
 <?PHP
 include_once __DIR__ . "/Database.php";
-// header("index.php");
 new task();
 ?>
 <!DOCTYPE html>
@@ -9,6 +8,7 @@ new task();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./style.css?v=3">
 </head>
 <body>
     <div class="main-section">
@@ -36,20 +36,28 @@ new task();
                 <button type="submit">add &nbsp; <span>&#43;</span></button>
             </form>
         </div>
-        <div class="show-todo-section">
-            <?php (new task)->viewTask("To Do"); ?>
-            <div class="todo-item">
-                <select name="status" id="">
-                    <option value="todo">To Do</option>
-                    <option value="inprogress">In Progress</option>
-                    <option value="done">Done</option>
-                </select>
-                <h2>this</h2>
-                <br>
-                <small>created 1-1-2025</small>
+        <div class="task-main-section">
+            <div class="tasks-container">
+                <h2 style="background-color: #d9d7d7;">To Do</h2>
+                <div class="show-todo-section" id="status-section">
+                    <?php (new task)->viewTask("To Do"); ?>
+                </div>
+            </div>
+            <div class="tasks-container">
+                <h2 style="background-color: #c5c5ff;">In Progress</h2>
+                <div class="show-inprogress-section" id="status-section">
+                    <?php (new task)->viewTask("In Progress"); ?>
+                </div>
+            </div>
+            <div class="tasks-container">
+                <h2 style="background-color: #d1fae5;">Done</h2>
+                <div class="show-done-section" id="status-section">
+                    <?php (new task)->viewTask("Done"); ?>
+                </div>
             </div>
         </div>
     </div>
+    <script src="./script.js"></script>
     <?php include_once __DIR__. "/editModal.php";?>
 </body>
 </html>
