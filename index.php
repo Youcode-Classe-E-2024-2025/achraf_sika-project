@@ -13,7 +13,7 @@ new task();
 <body>
     <div class="main-section">
         <div class="add-section">
-            <form action="./Database.php?action=add" method="post" autocomplete="off">
+            <form action="./database/Database.php?action=add" method="post" autocomplete="off">
                 <?php if(isset($_GET["mess"]) && $_GET["mess"] == "error"){?>
                     <style>
                         #tasktitle {
@@ -58,6 +58,6 @@ new task();
         </div>
     </div>
     <script src="./script.js"></script>
-    <?php include_once __DIR__. "/editModal.php";?>
+    <?php include_once __DIR__. "./view/includes/editModal.php";?>
 </body>
 </html>
