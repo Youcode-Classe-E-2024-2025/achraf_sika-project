@@ -9,6 +9,13 @@
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Log In</h2>
+        <?php
+        if (isset($_GET["error"])) {
+            if ($_GET["error"]=="Password_or_email_incorrect") {
+                echo'<h2 class="mb-6 rounded-md text-center bg-red-200 text-red-700 p-6">Error: Password or email incorrect</h2>';
+            }
+        }
+        ?>
         <form id="loginForm" class="space-y-4" action="../../controller/UserController.php?action=login" method="POST">
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>

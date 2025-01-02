@@ -3,7 +3,7 @@
 include_once __DIR__ . "/../config/config.php";
 
 class Database {
-    protected $db;
+    public $db;
 
     public function __construct() {
         try {
