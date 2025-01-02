@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="style.css">
+<div></div>
 <?php
-include_once __DIR__ . "/config.php";
+include_once __DIR__ . "/../config/config.php";
 
 class Database {
     protected $db;
@@ -67,7 +67,7 @@ class task extends connect {
                                         Created: <span id="taskDate">'.$task["created_at"].'</span>
                                     </div>
                                     <div class="manage-task">
-                                        <form action="./Database.php?action=delete" method="post">
+                                        <form action="./database/Database.php?action=delete" method="post">
                                             <input id="taskId" type="hidden" name="delete" value="'.$task["task_id"].'">
                                             <input type="submit" class="delete-button" value="Delete">
                                         </form>
@@ -112,16 +112,16 @@ if (isset($_GET["action"])) {
             $status = $_POST["status"];
             $type = $_POST["type"];
             if(empty($title) || empty($description) || empty($status) || empty($type)) {
-                header("Location: ./index.php?mess=error");
+                header("Location: /project_oop/index.php?mess=error");
             }else {
                 (new task)->insertTask($title,$description, $status, $type);
-                header("Location: ./index.php");
+                header("Location: /project_oop/index.php");
             }
         }
     }elseif ($_GET["action"]=="delete") {
         $id = $_POST["delete"];
         (new task)->deleteTask($id);
-        header("Location: ./index.php");
+        header("Location: /project_oop/index.php");
     }elseif ($_GET["action"]=="edit") {
         if(isset($_POST["name"])) { 
             $title = $_POST["name"];
@@ -133,7 +133,7 @@ if (isset($_GET["action"])) {
 
             }else {
                 (new task)->editTask($title,$description, $status, $type, $id);
-                header("Location: ./index.php");
+                header("Location: /project_oop/index.php");
             }
         }
     }

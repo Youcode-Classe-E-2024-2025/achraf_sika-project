@@ -1,5 +1,5 @@
 <?PHP
-include_once __DIR__ . "/Database.php";
+include_once __DIR__ . "/database/Database.php";
 new task();
 ?>
 <!DOCTYPE html>
@@ -8,7 +8,7 @@ new task();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./style.css?v=3">
+    <link rel="stylesheet" href="./assets/css/style.css?v=3">
 </head>
 <body>
     <div class="main-section">
@@ -17,7 +17,8 @@ new task();
                 <?php if(isset($_GET["mess"]) && $_GET["mess"] == "error"){?>
                     <style>
                         #tasktitle {
-                            border-color: red;
+                            outline: auto;
+                            outline-color: red;
                         }
                     </style>
                 <?php }?>
@@ -57,7 +58,7 @@ new task();
             </div>
         </div>
     </div>
-    <script src="./script.js"></script>
-    <?php include_once __DIR__. "./view/includes/editModal.php";?>
+    <script src="./assets/js/script.js"></script>
+    <?php include_once __DIR__. "/view/includes/editModal.php";?>
 </body>
 </html>
