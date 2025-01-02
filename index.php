@@ -1,7 +1,3 @@
-<?PHP
-include_once __DIR__ . "/database/Database.php";
-new task();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +8,8 @@ new task();
 </head>
 <body>
     <div class="main-section">
-        <div class="add-section">
-            <form action="./database/Database.php?action=add" method="post" autocomplete="off">
+        <div class="add-section" style="margin-bottom: 1rem;">
+            <form action="./controller/TaskController.php?action=add" method="post" autocomplete="off">
                 <?php if(isset($_GET["mess"]) && $_GET["mess"] == "error"){?>
                     <style>
                         #tasktitle {
@@ -37,27 +33,7 @@ new task();
                 <button type="submit">add &nbsp; <span>&#43;</span></button>
             </form>
         </div>
-        <div class="task-main-section">
-            <div class="tasks-container">
-                <h2 style="background-color: #d9d7d7;">To Do</h2>
-                <div class="show-todo-section" id="status-section">
-                    <?php (new task)->viewTask("To Do"); ?>
-                </div>
-            </div>
-            <div class="tasks-container">
-                <h2 style="background-color: #c5c5ff;">In Progress</h2>
-                <div class="show-inprogress-section" id="status-section">
-                    <?php (new task)->viewTask("In Progress"); ?>
-                </div>
-            </div>
-            <div class="tasks-container">
-                <h2 style="background-color: #d1fae5;">Done</h2>
-                <div class="show-done-section" id="status-section">
-                    <?php (new task)->viewTask("Done"); ?>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php include_once __DIR__. "/view/includes/tasksSection.php";?>
     <script src="./assets/js/script.js"></script>
     <?php include_once __DIR__. "/view/includes/editModal.php";?>
 </body>

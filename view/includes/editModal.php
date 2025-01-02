@@ -16,7 +16,7 @@
             <h3>Edit Task</h3>
         </div>
         <div class="modal-body">
-            <form action="./database/Database.php?action=edit" method="post" id="editForm">
+            <form action="./controller/TaskController.php?action=edit" method="post" id="editForm">
                 <div class="form-group">
                     <label for="editName">Task Name</label>
                     <input type="text" id="editName" name="name">
