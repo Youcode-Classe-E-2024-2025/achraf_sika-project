@@ -8,6 +8,13 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./assets/css/style.css?v=3">
+    <script>
+        document.addEventListener("DOMContentLoaded",()=>{
+            if (window.location.href!="http://localhost/project_oop/index.php") {
+                window.location.href="http://localhost/project_oop/index.php";
+            }
+        })
+    </script>
 </head>
 <body>
     <div class="main-section">
@@ -40,6 +47,10 @@ session_start();
     <?php include_once __DIR__. "/view/includes/tasksSection.php";?>
     <script src="./assets/js/script.js"></script>
     <?php include_once __DIR__. "/view/includes/editModal.php";?>
-    <?php }?>
+    <?php }
+    if (isset($_GET["project_id"])) {
+        $_SESSION["project_id"] = $_GET["project_id"];
+    }
+    ?>
 </body>
 </html>

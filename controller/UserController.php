@@ -38,7 +38,7 @@ class UserController extends Auth {
                 echo "Erreur lors de l'inscription.";
             }
         }
-        
+
         if (isset($_GET['action']) && $_GET['action'] == 'login' && $_SERVER["REQUEST_METHOD"] == "POST") {
             $email = $_POST['email'];
             $password = $_POST['password'];
@@ -46,7 +46,7 @@ class UserController extends Auth {
             if ($result) {
                 $_SESSION["user"] = ($this->getUserByEmail($email))["user_id"];
                 if($result['role'] == "User"){
-                    header('Location: ../index.php');
+                    header('Location: ../user.php');
                 }else{
                     header('Location: ../view/layouts/admin.php');
                 }

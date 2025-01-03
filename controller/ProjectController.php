@@ -9,7 +9,7 @@ class ProjectController extends Auth {
             $owner = $_SESSION["user"];
             $category_id = (int) $_POST["category_id"];
             $this->creatproject($project, $owner, $category_id);
-            
+            header("location: /project_oop/index.php");
         }
     }
 }

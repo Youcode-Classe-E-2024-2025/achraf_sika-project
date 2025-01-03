@@ -76,37 +76,24 @@
 <body>
 
     <a href="./newproject.php" class="blue-button">Creat new project</a>
-
     <div class="container">
         <div class="project-list">
             <!-- Dynamically loaded project links -->
             <?php 
                 include_once("./database/Database.php");
+                session_start();
                 $taskInfo;
                 $connect = (new Database)->db;
-                $project = $connect->query("SELECT * FROM projects;");
+                $project = $connect->prepare("SELECT * FROM projects where project_owner_id = ?;");
+                $project->execute([$_SESSION["user"]]);
                 while ($projects = $project->fetch(PDO::FETCH_ASSOC)) {
-                    // echo '<option value="'.$tasks["user_id"].'">'.$tasks["email"].'</option>';
-                    echo '<div class="project-item">
-                            <a href="project_details.php?project_id=1">Mobile App Development</a>
-                            <p class="status">Status: Active</p>
+                    echo '
+                        <div class="project-item">
+                            <a href="index.php?project_id='.$projects["project_id"].'">'.$projects["project_name"].'</a>
+                            <p class="status">Status: '.$projects["status"].'</p>
                         </div>';
                 }
             ?>
-            <div class="project-item">
-                <a href="project_details.php?project_id=1">Mobile App Development</a>
-                <p class="status">Status: Active</p>
-            </div>
-
-            <div class="project-item">
-                <a href="index.php?project_id=2">Marketing Campaign</a>
-                <p class="status">Status: Planned</p>
-            </div>
-
-            <div class="project-item">
-                <a href="project_details.php?project_id=3">Website Redesign</a>
-                <p class="status">Status: On Hold</p>
-            </div>
         </div>
     </div>
 

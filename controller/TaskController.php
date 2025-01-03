@@ -1,4 +1,7 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 include __DIR__.'/../database/Database.php';
 class task extends connect {
     protected $connect;
@@ -6,7 +9,8 @@ class task extends connect {
     private $id, $title, $descrption, $status, $type, $creation_date;
     public function __construct() {
         $this->connect = (new connect())->connect;
-        $task = $this->connect->query("SELECT * FROM tasks ORDER BY task_id DESC");
+        $task = $this->connect->prepare("SELECT * FROM tasks where project_id = ? ORDER BY task_id DESC");
+        $task->execute([$_SESSION["project_id"]]);
         while ($tasks= $task->fetch(PDO::FETCH_ASSOC)) {
             $this->taskInfo[] = $tasks;
         }
@@ -14,7 +18,7 @@ class task extends connect {
     public function viewTask($stat) {
         try {
             if ($this->taskInfo === null) {
-                throw new Exception("Create a New Task");
+                throw new Exception();
             }
             foreach ($this->taskInfo as $task) {
                 if (in_array($stat,$task)) {
@@ -65,9 +69,9 @@ class task extends connect {
         $stmt = $this->connect->prepare("DELETE FROM tasks where task_id = ?");
         $res = $stmt->execute([$id]);
     }
-    public function insertTask($title,$description,$status,$task_type) {
-        $stmt = $this->connect->prepare("INSERT INTO tasks(title, description, status, task_type) VALUE(?,?,?,?)");
-        $res = $stmt->execute([$title,$description,$status,$task_type]);
+    public function insertTask($title,$description,$status,$task_type, $id) {
+        $stmt = $this->connect->prepare("INSERT INTO tasks(title, description, status, task_type, project_id) VALUE(?,?,?,?,?)");
+        $res = $stmt->execute([$title,$description,$status,$task_type, $id]);
     }
 }
 if (isset($_GET["action"])) {
@@ -77,10 +81,11 @@ if (isset($_GET["action"])) {
             $description = $_POST["description"];
             $status = $_POST["status"];
             $type = $_POST["type"];
+            $project_id = $_SESSION["project_id"];
             if(empty($title) || empty($description) || empty($status) || empty($type)) {
                 header("Location: /project_oop/index.php?mess=error");
             }else {
-                (new task)->insertTask($title,$description, $status, $type);
+                (new task)->insertTask($title,$description, $status, $type, $project_id);
                 header("Location: /project_oop/index.php");
             }
         }
