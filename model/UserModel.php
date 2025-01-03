@@ -16,5 +16,11 @@ class Auth extends connect {
         $stmt->execute([$email]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function creatproject($name, $owner, $category) {
+        $this->connect = (new Database)->db;
+        $stmt = $this->connect->prepare("INSERT INTO projects (project_name, project_owner_id, category_id) VALUES (?, ?, ?)");
+        return $stmt->execute([$name, $owner, $category]);
+    }
 }
 ?>
