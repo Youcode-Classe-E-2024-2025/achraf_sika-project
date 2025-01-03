@@ -74,8 +74,12 @@
     </style>
 </head>
 <body>
-
-    <a href="./newproject.php" class="blue-button">Creat new project</a>
+    <nav style="padding: 10px; background-color: #1d4ed8;">
+        <input type="search" palceholder="Search" style="background-color: #597bd9; border: none; border-radius: 2px; height: 30px;">
+    </nav>
+    <div style="display: flex; justify-content: center; margin-top: 10px;">
+        <a href="./newproject.php" class="blue-button">Creat new project</a>
+    </div>
     <div class="container">
         <div class="project-list">
             <!-- Dynamically loaded project links -->
