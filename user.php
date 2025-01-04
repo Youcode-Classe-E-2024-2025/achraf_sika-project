@@ -84,6 +84,7 @@
         <div class="project-list">
             <!-- Dynamically loaded project links -->
             <?php 
+                include("./config/config.php");
                 include_once("./database/Database.php");
                 session_start();
                 $taskInfo;
@@ -94,8 +95,15 @@
                     echo '
                         <div class="project-item">
                             <a href="index.php?project_id='.$projects["project_id"].'">'.$projects["project_name"].'</a>
-                            <p class="status">Status: '.$projects["status"].'</p>
-                        </div>';
+                            <p class="status">Status: '.$projects["status"];
+                    $team = $connect->prepare(TEAM);
+                    $team->execute([$projects["project_id"]]);
+                    echo '<p>team members: ';
+                    while ($teams = $team->fetch(PDO::FETCH_ASSOC)) {
+                        echo '<span>'.$teams["firstname"].'</span>'.'<span> '.$teams["lastname"].', </span>';
+                    }
+                    echo '</p>';
+                    echo '</p></div>';
                 }
             ?>
         </div>

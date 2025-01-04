@@ -20,7 +20,13 @@ class Auth extends connect {
     public function creatproject($name, $owner, $category) {
         $this->connect = (new Database)->db;
         $stmt = $this->connect->prepare("INSERT INTO projects (project_name, project_owner_id, category_id) VALUES (?, ?, ?)");
-        return $stmt->execute([$name, $owner, $category]);
+        $stmt->execute([$name, $owner, $category]);
+        return $this->connect->lastInsertId();
+    }
+    public function creatteam($member, $project) {
+        $this->connect = (new Database)->db;
+        $stmt = $this->connect->prepare("INSERT INTO teammembers (user_id, project_id) VALUES (?, ?)");
+        return $stmt->execute([$member, $project]);
     }
 }
 ?>

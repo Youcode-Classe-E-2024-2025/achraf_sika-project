@@ -31,19 +31,23 @@ const SQL_DATABASE = "
     title VARCHAR(100) NOT NULL,
     description TEXT,
     project_id INT,
+    assign_id INT,
     status ENUM('To Do', 'In Progress', 'Done') DEFAULT 'To Do',
     task_type ENUM('Simple', 'Bug', 'Feature') DEFAULT 'Simple',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (project_id) REFERENCES projects(project_id)
+    FOREIGN KEY (project_id) REFERENCES projects(project_id),
+    FOREIGN KEY (assign_id) REFERENCES Users(user_id) ON DELETE SET NULL
     );
 
-    CREATE TABLE IF NOT EXISTS UserTasks (
-    user_id INT,
-    task_id INT,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (task_id) REFERENCES Tasks(task_id) ON DELETE CASCADE
-    );
     insert into categories(category_name) values('Frontend'),('Backend'),('UI'),('UX');
+
+    CREATE TABLE IF NOT EXISTS TeamMembers (
+    user_id INT,
+    project_id INT,
+    PRIMARY KEY (user_id, project_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES projects(project_id) ON DELETE CASCADE);
+
 ";
 
 const HOST = "localhost";
@@ -67,3 +71,22 @@ INNER JOIN users ON usertasks.user_id = users.user_id
 INNER JOIN tasks ON usertasks.task_id = tasks.task_id
 WHERE email = ?;
 ";
+const TEAM =
+"SELECT 
+    u.user_id,
+    u.firstname,
+    u.lastname,
+    u.email,
+    p.project_id,
+    p.project_name,
+    p.status AS project_status
+FROM 
+    TeamMembers t
+JOIN 
+    Users u ON t.user_id = u.user_id
+JOIN 
+    Projects p ON t.project_id = p.project_id
+WHERE p.project_id LIKE ?
+
+ORDER BY 
+    p.project_name;";

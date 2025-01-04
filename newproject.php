@@ -100,7 +100,7 @@
                     $connect = (new Database)->db;
                     $user = $connect->query("SELECT * FROM Users;");
                     while ($users= $user->fetch(PDO::FETCH_ASSOC)) {
-                        echo '<option value="'.$tasks["user_id"].'">'.$tasks["email"].'</option>';
+                        echo '<option value="'.$users["user_id"].'">'.$users["email"].'</option>';
                     }
                     ?>
                 </select>

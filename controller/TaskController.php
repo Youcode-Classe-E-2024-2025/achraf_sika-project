@@ -9,11 +9,12 @@ class task extends connect {
     private $id, $title, $descrption, $status, $type, $creation_date;
     public function __construct() {
         $this->connect = (new connect())->connect;
-        $task = $this->connect->prepare("SELECT * FROM tasks where project_id = ? ORDER BY task_id DESC");
+        $task = $this->connect->prepare("SELECT t.*, u.firstname, u.lastname, u.email FROM tasks t LEFT JOIN users u ON t.assign_id = u.user_id WHERE t.project_id = ? ORDER BY t.task_id DESC");
         $task->execute([$_SESSION["project_id"]]);
-        while ($tasks= $task->fetch(PDO::FETCH_ASSOC)) {
+        while ($tasks = $task->fetch(PDO::FETCH_ASSOC)) {
             $this->taskInfo[] = $tasks;
         }
+
     }
     public function viewTask($stat) {
         try {
@@ -48,7 +49,7 @@ class task extends connect {
                             <div class="task-footer-bg">
                                 <div class="task-footer-content">
                                     <div class="user-meta">
-                                        <span class="user-name">Sarah Johnson</span>
+                                        <span class="user-name">'.$task["firstname"].' '.$task["lastname"].'</span>
                                     </div>
                                     <span id="taskStatus" class="task-status">'.$task["status"].'</span>
                                 </div>
@@ -59,6 +60,7 @@ class task extends connect {
             }
         }catch (Exception $e) {
             echo $e->getMessage();
+            
         }
     }
     public function editTask($title,$description,$status,$task_type,$id) {
@@ -69,9 +71,9 @@ class task extends connect {
         $stmt = $this->connect->prepare("DELETE FROM tasks where task_id = ?");
         $res = $stmt->execute([$id]);
     }
-    public function insertTask($title,$description,$status,$task_type, $id) {
-        $stmt = $this->connect->prepare("INSERT INTO tasks(title, description, status, task_type, project_id) VALUE(?,?,?,?,?)");
-        $res = $stmt->execute([$title,$description,$status,$task_type, $id]);
+    public function insertTask($title,$description,$status,$task_type, $id, $assign) {
+        $stmt = $this->connect->prepare("INSERT INTO tasks(title, description, status, task_type, project_id, assign_id) VALUE(?,?,?,?,?,?)");
+        $res = $stmt->execute([$title,$description,$status,$task_type, $id, $assign]);
     }
 }
 if (isset($_GET["action"])) {
@@ -82,10 +84,11 @@ if (isset($_GET["action"])) {
             $status = $_POST["status"];
             $type = $_POST["type"];
             $project_id = $_SESSION["project_id"];
+            $assign = (int)$_POST["assign"];
             if(empty($title) || empty($description) || empty($status) || empty($type)) {
                 header("Location: /project_oop/index.php?mess=error");
             }else {
-                (new task)->insertTask($title,$description, $status, $type, $project_id);
+                (new task)->insertTask($title,$description, $status, $type, $project_id, $assign);
                 header("Location: /project_oop/index.php");
             }
         }

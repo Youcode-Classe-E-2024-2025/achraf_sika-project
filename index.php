@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once("./config/config.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +37,17 @@ session_start();
                 <option value="In Progress">In Progress</option>
                 <option value="Done">Done</option>
             </select>
+            <select name="assign" id="">
+                <?php
+                $connect = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, USERNAME, PASSWORD);
+                $team = $connect->prepare(TEAM);
+                $team->execute([$_SESSION["project_id"]]);
+                while ($teams = $team->fetch(PDO::FETCH_ASSOC)) {
+                    echo '<option value='.(int)$teams["user_id"].'>'.$teams["firstname"].' '.$teams["lastname"].'</option>';
+                }
+                ?>
+            </select>
+            
             <select name="type" id="tasktype">
                 <option value="simple">Simple</option>
                 <option value="bug">Bug</option>
