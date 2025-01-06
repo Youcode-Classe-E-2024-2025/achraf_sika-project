@@ -88,7 +88,11 @@
                 $taskInfo;
                 $connect = (new Database)->db;
                 $project = $connect->prepare("SELECT * FROM projects where project_owner_id = ?;");
-                $project->execute([$_SESSION["user"]]);
+                if (isset($_SESSION["user"])) {
+                    $project->execute([$_SESSION["user"]]);
+                }else {
+                    echo '<script>window.location.href="http://localhost/project_oop/view/login/login.php"</script>';
+                }
                 while ($projects = $project->fetch(PDO::FETCH_ASSOC)) {
                     echo '
                         <div class="project-item">

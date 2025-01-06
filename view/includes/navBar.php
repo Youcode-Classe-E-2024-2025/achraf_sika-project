@@ -10,7 +10,7 @@
                     <div class="hidden md:block">
                         <div class="ml-10 flex items-baseline space-x-4">
                             <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white" aria-current="page">Dashboard</a>
-                            <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Projects</a>
+                            <a href="user.php" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Projects</a>
                             <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Calendar</a>
                             <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Reports</a>
                         </div>
@@ -35,11 +35,11 @@
                                 <img class="size-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                                 </button>
                             </div>
-                            <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                            <div class="absolute hidden right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                                 <!-- Active: "bg-gray-100 outline-none", Not Active: "" -->
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                                <a href="controller\logout.php" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
                             </div>
                         </div>
                     </div>
@@ -47,29 +47,34 @@
             </div>
         </div>
     </nav>
-    <main>
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        </div>
-    </main>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Manage Profile Dropdown Menu
-            const userMenuButton = document.getElementById('user-menu-button');
-            const userMenuDropdown = userMenuButton.nextElementSibling;
+                const userMenuButton = document.getElementById('user-menu-button');
+                const userMenu = userMenuButton.parentElement.nextElementSibling;
 
-            userMenuButton.addEventListener('click', () => {
-                const isExpanded = userMenuButton.getAttribute('aria-expanded') === 'true';
-                userMenuButton.setAttribute('aria-expanded', !isExpanded);
-                userMenuDropdown.classList.toggle('hidden');
-            });
+                // Toggle dropdown menu
+                userMenuButton.addEventListener('click', (event) => {
+                    const expanded = userMenuButton.getAttribute('aria-expanded') === 'true' || false;
+                    userMenuButton.setAttribute('aria-expanded', !expanded);
+                    userMenu.classList.toggle('hidden');
+                });
 
-            // Close dropdown if clicking outside
-            document.addEventListener('click', (event) => {
-                if (!userMenuButton.contains(event.target) && !userMenuDropdown.contains(event.target)) {
-                    userMenuButton.setAttribute('aria-expanded', 'false');
-                    userMenuDropdown.classList.add('hidden');
-                }
-            });
+                // Close the dropdown when clicking outside
+                document.addEventListener('click', (event) => {
+                    if (!userMenuButton.contains(event.target) && !userMenu.contains(event.target)) {
+                        userMenu.classList.add('hidden');
+                        userMenuButton.setAttribute('aria-expanded', 'false');
+                    }
+                });
+
+                // Close on pressing escape
+                document.addEventListener('keydown', (event) => {
+                    if (event.key === 'Escape') {
+                        userMenu.classList.add('hidden');
+                        userMenuButton.setAttribute('aria-expanded', 'false');
+                    }
+                });
+
 
             // Manage Active Navigation Link
             const navLinks = document.querySelectorAll('nav a');

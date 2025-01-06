@@ -33,7 +33,7 @@
         </form>
         <div class="mt-4 text-center text-sm">
             <span class="text-gray-600">Don't have an account? </span>
-            <a href="views\signup\signup.html" class="text-indigo-600 hover:text-indigo-500">Sign up</a>
+            <a href="..\signup\signup.html" class="text-indigo-600 hover:text-indigo-500">Sign up</a>
         </div>
     </div>
 </body>

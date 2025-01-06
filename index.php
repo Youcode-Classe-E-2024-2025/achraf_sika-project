@@ -2,7 +2,7 @@
 session_start();
 include_once("./config/config.php");
 if (!isset($_SESSION["user"])) {
-    header("location: project_oop/home.php");
+    header("location: view/login/login.php");
 }
 ?>
 <!DOCTYPE html>
@@ -21,6 +21,7 @@ if (!isset($_SESSION["user"])) {
     </script>
 </head>
 <body>
+<?php require __DIR__."/view/includes/navBar.php"?>
 <div class="popup-overlay" id="popup">
     <div class="popup-content">
         <h2>Add New Task</h2>
@@ -142,6 +143,19 @@ if (!isset($_SESSION["user"])) {
 
     .blue-button:hover {
         background-color: #1e3a8a;
+    }
+    .tasks-container{
+        width: 27%;
+    }
+    #status-section::-webkit-scrollbar {
+    display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    #status-section {
+        width: 100%;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
     }
 </style>
 
