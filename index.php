@@ -1,6 +1,9 @@
 <?php
 session_start();
 include_once("./config/config.php");
+if (!isset($_SESSION["user"])) {
+    header("location: project_oop/home.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

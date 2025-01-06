@@ -22,8 +22,7 @@ class task extends connect {
                 throw new Exception();
             }
             foreach ($this->taskInfo as $task) {
-                if (in_array($stat,$task)) {
-                    echo '<div id="taskCard" class="task-card">
+                $task_card= '<div id="taskCard" class="task-card">
                             <div class="task-content">
                                 <div class="task-header">
                                     <h2 id="taskName" class="task-title">'.$task["title"].'</h2>
@@ -56,6 +55,8 @@ class task extends connect {
                             </div>
                         </div>  
                     ';
+                if (in_array($stat,$task)) {
+                    echo $task_card;
                 }
             }
         }catch (Exception $e) {

@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,9 +75,7 @@
     </style>
 </head>
 <body>
-    <nav style="padding: 10px; background-color: #1d4ed8;">
-        <input type="search" palceholder="Search" style="background-color: #597bd9; border: none; border-radius: 2px; height: 30px;">
-    </nav>
+<?php require __DIR__."/view/includes/navBar.php"?>
     <div style="display: flex; justify-content: center; margin-top: 10px;">
         <a href="./newproject.php" class="blue-button">Creat new project</a>
     </div>
@@ -86,7 +85,6 @@
             <?php 
                 include("./config/config.php");
                 include_once("./database/Database.php");
-                session_start();
                 $taskInfo;
                 $connect = (new Database)->db;
                 $project = $connect->prepare("SELECT * FROM projects where project_owner_id = ?;");
