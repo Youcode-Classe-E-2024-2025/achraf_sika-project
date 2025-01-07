@@ -1,0 +1,2 @@
+DirectoryIndex view\login\login.php
+ErrorDocument 404 /project_oop/404.html

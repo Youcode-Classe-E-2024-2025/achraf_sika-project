@@ -95,8 +95,8 @@
                 }
                 while ($projects = $project->fetch(PDO::FETCH_ASSOC)) {
                     echo '
-                        <div class="project-item">
-                            <a href="index.php?project_id='.$projects["project_id"].'">'.$projects["project_name"].'</a>
+                        <a href="index.php?project_id='.$projects["project_id"].'" class="project-item">
+                            <p style="font-weight: 800; font-size: x-large;">'.$projects["project_name"].'</p>
                             <p class="status">Status: '.$projects["status"];
                     $team = $connect->prepare(TEAM);
                     $team->execute([$projects["project_id"]]);
@@ -105,7 +105,7 @@
                         echo '<span>'.$teams["firstname"].'</span>'.'<span> '.$teams["lastname"].', </span>';
                     }
                     echo '</p>';
-                    echo '</p></div>';
+                    echo '</p></a>';
                 }
             ?>
         </div>
