@@ -48,6 +48,13 @@ const SQL_DATABASE = "
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (project_id) REFERENCES projects(project_id) ON DELETE CASCADE);
 
+    CREATE TABLE IF NOT EXISTS Permissions (
+    Permission_id INT AUTO_INCREMENT PRIMARY KEY,
+    role_attr varchar(255),
+    Permission varchar(255),
+    PRIMARY KEY (Permission,role),
+    FOREIGN KEY (role_attr) REFERENCES users(role) ON DELETE CASCADE);
+
 ";
 
 const HOST = "localhost";

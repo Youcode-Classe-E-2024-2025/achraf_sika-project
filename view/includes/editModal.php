@@ -61,86 +61,86 @@
     justify-content: center;
     align-items: flex-start;
     padding-top: 5rem;
-}
+    }
 
-/* Modal Content */
-.modal-content {
-    background-color: white;
-    border-radius: 0.375rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 24rem;
-    padding: 1.25rem;
-    border: 1px solid #d1d5db;  /* gray-300 */
-}
+    /* Modal Content */
+    .modal-content {
+        background-color: white;
+        border-radius: 0.375rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 24rem;
+        padding: 1.25rem;
+        border: 1px solid #d1d5db;  /* gray-300 */
+    }
 
-/* Modal Header */
-.modal-header h3 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #111827;  /* gray-900 */
-    margin-bottom: 1rem;
-    text-align: center;
-}
+    /* Modal Header */
+    .modal-header h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #111827;  /* gray-900 */
+        margin-bottom: 1rem;
+        text-align: center;
+    }
 
-/* Form Group */
-.form-group {
-    margin-bottom: 1rem;
-}
+    /* Form Group */
+    .form-group {
+        margin-bottom: 1rem;
+    }
 
-.form-group label {
-    display: block;
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: #374151;  /* gray-700 */
-    margin-bottom: 0.5rem;
-}
+    .form-group label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: #374151;  /* gray-700 */
+        margin-bottom: 0.5rem;
+    }
 
-.form-group input,
-.form-group textarea,
-.form-group select {
-    width: 100%;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid #d1d5db;  /* gray-300 */
-    border-radius: 0.375rem;
-    font-size: 1rem;
-    color: #4b5563;  /* gray-700 */
-    outline: none;
-}
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid #d1d5db;  /* gray-300 */
+        border-radius: 0.375rem;
+        font-size: 1rem;
+        color: #4b5563;  /* gray-700 */
+        outline: none;
+    }
 
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);  /* blue-300 */
-    border-color: #3b82f6;  /* blue-500 */
-}
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);  /* blue-300 */
+        border-color: #3b82f6;  /* blue-500 */
+    }
 
-/* Modal Footer */
-.modal-footer {
-    margin-top: 1.5rem;
-    display: flex;
-    justify-content: center;
-}
+    /* Modal Footer */
+    .modal-footer {
+        margin-top: 1.5rem;
+        display: flex;
+        justify-content: center;
+    }
 
-#saveButton {
-    background-color: #3b82f6;  /* blue-500 */
-    color: white;
-    font-size: 1rem;
-    font-weight: 500;
-    border: none;
-    border-radius: 0.375rem;
-    padding: 0.75rem;
-    width: 100%;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.2s ease-in-out;
-}
+    #saveButton {
+        background-color: #3b82f6;  /* blue-500 */
+        color: white;
+        font-size: 1rem;
+        font-weight: 500;
+        border: none;
+        border-radius: 0.375rem;
+        padding: 0.75rem;
+        width: 100%;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.2s ease-in-out;
+    }
 
-#saveButton:hover {
-    background-color: #2563eb;  /* blue-700 */
-}
+    #saveButton:hover {
+        background-color: #2563eb;  /* blue-700 */
+    }
 
-#saveButton:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
-}
+    #saveButton:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+    }
 </style>
