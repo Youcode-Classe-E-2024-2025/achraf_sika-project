@@ -33,7 +33,7 @@
             });
             function updatePreview() {
                 const desc = document.getElementById("jsonMarkdown");
-                desc.value = JSON.stringify(simplemde.value());
+                desc.value = JSON.stringify(simplemde.markdown(simplemde.value()));
             }
             simplemde.codemirror.on("change", updatePreview);
         });

@@ -212,8 +212,6 @@ if (!isset($_SESSION["user"])) {
         }
         else {
             echo '
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
   <style>
     #preview {
       border: 1px solid #ddd;
@@ -222,16 +220,12 @@ if (!isset($_SESSION["user"])) {
       font-family: Arial, sans-serif;
     }
   </style>
-            <div id="preview"></div>
+            <div id="preview" style="padding: 50px;"></div>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const preview = document.getElementById("preview");
 
-      const readmeContent ='.$proj["description"].';
-
-      const html = SimpleMDE.prototype.markdown(readmeContent);
-
-      preview.innerHTML = html;
+      preview.innerHTML = '.$proj["description"].';
     });
   </script>
 
