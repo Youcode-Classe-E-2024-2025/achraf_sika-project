@@ -207,11 +207,35 @@ if (!isset($_SESSION["user"])) {
         <?php
         include_once __DIR__."/controller/projcontroller.php";
         $proj = projectview($_SESSION["project_id"]);
-        if ($proj =="" || $proj ==null) {
+        if ($proj["description"] =="" || $proj["description"] ==null) {
             include_once __DIR__. "/view/profile/project_detail.php";
         }
         else {
-            echo $proj ["description"];
+            echo '
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+  <style>
+    #preview {
+      border: 1px solid #ddd;
+      padding: 1rem;
+      background: #f9f9f9;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+            <div id="preview"></div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const preview = document.getElementById("preview");
+
+      const readmeContent ='.$proj["description"].';
+
+      const html = SimpleMDE.prototype.markdown(readmeContent);
+
+      preview.innerHTML = html;
+    });
+  </script>
+
+';
         }
         ?>
 </div>
