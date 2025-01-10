@@ -11,7 +11,11 @@ if (isset($_GET["action"])) {
             $status = $_POST["status"];
             $type = $_POST["type"];
             $project_id = $_SESSION["project_id"];
-            $assign = (int)$_POST["assign"];
+            if (isset($_POST["assign"])) {
+                $assign = $_POST["assign"];
+            }else {
+                $assign=null;
+            }
             if(empty($title) || empty($description) || empty($status) || empty($type)) {
                 header("Location: /project_oop/index.php?mess=error");
             }else {
