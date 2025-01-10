@@ -206,9 +206,14 @@ if (!isset($_SESSION["user"])) {
     <div id="desc-section">
         <?php
         include_once __DIR__."/controller/projcontroller.php";
-        projectview($_SESSION["project_id"]);
-        include_once __DIR__. "/view/profile/project_detail.php"
-        ;?>
+        $proj = projectview($_SESSION["project_id"]);
+        if ($proj =="" || $proj ==null) {
+            include_once __DIR__. "/view/profile/project_detail.php";
+        }
+        else {
+            echo $proj ["description"];
+        }
+        ?>
 </div>
     <script src="./assets/js/script.js"></script>
 </body>
