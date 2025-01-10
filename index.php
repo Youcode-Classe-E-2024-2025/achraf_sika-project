@@ -21,7 +21,13 @@ if (!isset($_SESSION["user"])) {
     </script>
 </head>
 <body>
-<?php require __DIR__."/view/includes/navBar.php"?>
+<?php require_once __DIR__."/view/includes/navBar.php"?>
+<div class="bg-seal-900 p2">
+    <button onclick="opendesc()" id="desc-btn">description</button>
+    <button onclick="openkanban()" id="kanban-btn">kanban</button>
+</div>
+
+<div id="task-main-section" style="display: none;">
 <div class="popup-overlay" id="popup">
     <div class="popup-content">
         <h2>Add New Task</h2>
@@ -66,9 +72,17 @@ if (!isset($_SESSION["user"])) {
 <div class="header">
     <a href="#" class="blue-button" onclick="openPopup()">Create New Task</a>
 </div>
-
+</div>
 <style>
-
+    .bg-seal-900{
+        background-color:rgb(60, 77, 103);
+        color: white;
+    }
+    .p2{
+        padding: 4px;
+        display: flex;
+        gap: 10px;
+    }
     .popup-overlay {
         position: fixed;
         top: 0;
@@ -151,11 +165,10 @@ if (!isset($_SESSION["user"])) {
     display: none;
     }
 
-    /* Hide scrollbar for IE, Edge and Firefox */
     #status-section {
         width: 100%;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     }
 </style>
 
@@ -167,18 +180,36 @@ if (!isset($_SESSION["user"])) {
     function closePopup() {
         document.getElementById('popup').style.display = 'none';
     }
+
+    function openkanban() {
+        document.getElementById("desc-section").style.display = "none";
+        document.querySelector('.main-section').style.display = 'block';
+        document.getElementById('task-main-section').style.display = 'block';
+    }
+    function opendesc() {
+        document.getElementById("desc-section").style.display = "block";
+        document.querySelector('.main-section').style.display = 'none';
+        document.getElementById('task-main-section').style.display = 'none';
+    }
 </script>
-    <div class="main-section" style="margin-bottom: 50px;">
-        <?php if (isset($_SESSION["user"])) {?>
+    <div class="main-section" style="margin-bottom: 50px; display: none;">
+        <?php if (isset($_SESSION["user"])) {
 
 
-    <?php include_once __DIR__. "/view/includes/tasksSection.php";?>
-    <script src="./assets/js/script.js"></script>
-    <?php include_once __DIR__. "/view/includes/editModal.php";?>
-    <?php }
+    include_once __DIR__. "/view/includes/tasksSection.php";
+    include_once __DIR__. "/view/includes/editModal.php";
+    }
     if (isset($_GET["project_id"])) {
         $_SESSION["project_id"] = $_GET["project_id"];
     }
     ?>
+    <div id="desc-section">
+        <?php
+        include_once __DIR__."/controller/projcontroller.php";
+        projectview($_SESSION["project_id"]);
+        include_once __DIR__. "/view/profile/project_detail.php"
+        ;?>
+</div>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>

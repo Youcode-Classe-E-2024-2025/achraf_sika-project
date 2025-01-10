@@ -1,5 +1,7 @@
 <?php
-include("./../database/Database.php");
+if (!class_exists('Database')) {
+    include_once(__DIR__."/../database/Database.php");
+}
 
 class Auth extends connect {
     public $connect;
@@ -27,6 +29,17 @@ class Auth extends connect {
         $this->connect = (new Database)->db;
         $stmt = $this->connect->prepare("INSERT INTO teammembers (user_id, project_id) VALUES (?, ?)");
         return $stmt->execute([$member, $project]);
+    }
+    public function projectdesk($desk, $id) {
+        $this->connect = (new Database)->db;
+        $stmt = $this->connect->prepare("UPDATE projects set description = ? where project_id = ?");
+        $res = $stmt->execute([$desk, $id]);
+    }
+    public function projectview($id){
+        $this->connect = (new Database)->db;
+        $stmt = $this->connect->prepare("SELECT * FROM projects where project_id = ?");
+        $res = $stmt->execute([$id]);
+        return $res->fetch(PDO::FETCH_ASSOC);
     }
 }
 ?>

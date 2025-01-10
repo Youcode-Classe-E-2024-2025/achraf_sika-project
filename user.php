@@ -75,7 +75,7 @@
     </style>
 </head>
 <body>
-<?php require __DIR__."/view/includes/navBar.php"?>
+<?php require_once __DIR__."/view/includes/navBar.php"?>
     <div style="display: flex; justify-content: center; margin-top: 10px;">
         <a href="./newproject.php" class="blue-button">Creat new project</a>
     </div>
@@ -83,7 +83,7 @@
         <div class="project-list">
             <!-- Dynamically loaded project links -->
             <?php 
-                include("./config/config.php");
+                include_once("./config/config.php");
                 include_once("./database/Database.php");
                 $taskInfo;
                 $connect = (new Database)->db;

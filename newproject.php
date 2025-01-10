@@ -95,7 +95,7 @@
                 <label for="members">Team Members <br><span style="font-size: 14px; color: gray; font-weight: 100;">select multiple by holding:</span> <span style="font-size: 30px; outline: auto; padding: 0px 2px;">ctrl</span> + click</label>
                 <select id="members" name="members[]" multiple>
                     <?php 
-                    include("./database/Database.php");
+                    include_once("./database/Database.php");
                     $taskInfo;
                     $connect = (new Database)->db;
                     $user = $connect->query("SELECT * FROM Users;");

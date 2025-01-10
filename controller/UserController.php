@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("./../model/UserModel.php");
+include_once("./../model/UserModel.php");
 
 class UserController extends Auth {
     public function signUp($firstname, $lastname, $email, $password) {
